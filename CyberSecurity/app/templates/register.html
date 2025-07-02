@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="form-box register-container">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <header>Register</header>
+
+                <div class="input-box">
+                    {{ form.username(class_='input-field', placeholder='Username') }}
+                    <i class="fa fa-user"></i>
+                </div>
+
+                <div class="input-box">
+                    {{ form.email(class_='input-field', placeholder='Email') }}
+                    <i class="fa fa-envelope"></i>
+                </div>
+
+                <div class="input-box">
+                    {{ form.password(class_='input-field', placeholder='Password') }}
+                    <i class="fa fa-lock"></i>
+                </div>
+
+                <div class="input-box">
+                    {{ form.confirm_password(class_='input-field', placeholder='Confirm Password') }}
+                    <i class="fa fa-lock"></i>
+                </div>
+
+                {{ form.submit(class_='submit') }}
+
+                <div class="top">
+                    <span>Already have an account?
+                        <a href="{{ url_for('main.login') }}">Login</a>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

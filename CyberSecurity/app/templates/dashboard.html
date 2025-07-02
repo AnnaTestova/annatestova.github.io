@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="nav">
+        <div class="nav-logo">
+            <p>CyberSecurityProject</p>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a class="link active" href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <a class="link" href="{{ url_for('main.add') }}">Add Password</a>
+
+            </ul>
+        </div>
+        <div class="nav-button">
+            <form action="{{ url_for('main.logout') }}" method="post">
+                {{ logout_form.hidden_tag() }}
+                {{ logout_form.submit(class="btn white-btn") }}
+            </form>            
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="form-box" style="width: 90%; height: auto; background-color: rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; color: #fff;">
+            <header>Welcome, {{ current_user.username }}!</header>
+
+            {% if credentials %}
+                <div style="overflow-x:auto; margin-top: 20px;">
+                    <table style="width:100%; color: white; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 10px; border-bottom: 1px solid #fff;">Site</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #fff;">Username</th>
+                                <th style="padding: 10px; border-bottom: 1px solid #fff;">Password</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cred in credentials %}
+                                <tr>
+                                    <td style="padding: 10px;">{{ cred.site }}</td>
+                                    <td style="padding: 10px;">{{ cred.username }}</td>
+                                    <td style="padding: 10px;">{{ cred.password }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p style="margin-top: 20px;">You haven't added any passwords yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
