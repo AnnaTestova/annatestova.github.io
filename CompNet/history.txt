@@ -1,0 +1,11 @@
+A joined the chat
+A joined the chat
+B joined the chat
+B joined the chat
+A: Hi,A!
+B: Hi,B!
+[Private] [Private from B]: How are you?
+A left the chat
+A left the chat
+B left the chat
+B left the chat
