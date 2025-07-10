@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Floral & Coral - Shopping Cart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo" style="margin-right: auto;">Floral & Coral</a>
+    <a href="catalog.html" class="btn">Back</a>
+  </nav>
+
+  <header class="catalog-header">
+    <h1>Your Cart</h1>
+  </header>
+
+  <section class="product-grid" id="cartGrid"></section>
+
+  <div style="text-align:center; margin: 20px;">
+    <button id="payBtn" class="btn">Pay</button>
+  </div>
+
+  <script>
+    async function loadCart() {
+      try {
+        const res = await fetch('/api/cart');
+        const cart = await res.json();
+
+        const grid = document.getElementById('cartGrid');
+        grid.innerHTML = '';
+
+        if (!cart.items || cart.items.length === 0) {
+          grid.innerHTML = '<p>Your cart is empty.</p>';
+          return;
+        }
+
+        cart.items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+            <img src="${item.product.image}" alt="${item.product.name}">
+            <h2>${item.product.name}</h2>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: $${(item.product.price * item.quantity).toFixed(2)}</p>
+            <button class="btn remove-btn" data-id="${item.product._id}">Delete</button>
+          `;
+          grid.appendChild(card);
+        });
+
+        document.querySelectorAll('.remove-btn').forEach(button => {
+          button.addEventListener('click', async (e) => {
+            const productId = e.target.getAttribute('data-id');
+            try {
+              const res = await fetch('/api/cart/remove', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId }),
+              });
+              if (res.ok) {
+                loadCart();
+              } else {
+                alert('Failed to remove item from cart.');
+              }
+            } catch (err) {
+              console.error('Error removing from cart:', err);
+              alert('Error removing item.');
+            }
+          });
+        });
+      } catch (err) {
+        console.error('Failed to load cart:', err);
+        document.getElementById('cartGrid').innerHTML = '<p>Error loading cart.</p>';
+      }
+    }
+
+    document.getElementById('payBtn').addEventListener('click', () => {
+      alert('Payment coming soon!');
+    });
+
+    window.addEventListener('DOMContentLoaded', loadCart);
+  </script>
+</body>
+</html>

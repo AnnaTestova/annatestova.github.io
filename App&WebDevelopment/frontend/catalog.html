@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Floral & Coral - Product Catalog</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Floral & Coral</a>
+    <a href="cart.html" class="btn" style="margin-left: auto;">Cart</a>
+  </nav>
+
+  <header class="catalog-header">
+    <h1>Our Aquarium Plants</h1>
+  </header>
+
+  <section class="product-grid" id="productGrid">
+    <p>Loading products...</p>
+  </section>
+
+  <script>
+    async function loadProducts() {
+      try {
+        const res = await fetch('/api/products');
+        const products = await res.json();
+
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = ''; 
+
+        products.forEach(product => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h2>${product.name}</h2>
+            <p>$${product.price.toFixed(2)}</p>
+            <button class="btn" onclick="addToCart('${product._id}')">Buy Now</button>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Failed to load products:', err);
+        document.getElementById('productGrid').innerHTML = '<p>Error loading products.</p>';
+      }
+    }
+
+    async function addToCart(productId) {
+      try {
+        const res = await fetch('/api/cart/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productId, quantity: 1 }),
+        });
+        if (res.ok) {
+          alert('Product added to cart!');
+        } else {
+          alert('Failed to add product to cart.');
+        }
+      } catch (err) {
+        console.error('Error adding to cart:', err);
+        alert('Error adding to cart.');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadProducts);
+  </script>
+</body>
+</html>

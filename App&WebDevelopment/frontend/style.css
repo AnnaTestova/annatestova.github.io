@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #f8dff5, #d4e2f0);
+    font-family: 'Ubuntu', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 30px 60px;
+}
+
+.logo {
+    font-size: 4em;
+    font-weight: bold;
+    font-family: 'Amatic SC', cursive;
+    color: 2d6a4f;
+    text-decoration: none; 
+}
+
+.btn {
+    display: inline-block;
+    background-color: white;
+    color: #2d6a4f;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.5em;
+    border-radius: 8px;
+    border: 3px solid #2d6a4f;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #2d6a4f;
+    color: white;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+
+    padding: 50px;
+    gap: 50px; 
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-text h1 {
+    font-size: 5em;
+    font-family: 'Amatic SC', cursive;
+    color: #2d6a4f;
+}
+
+.hero-text p {
+    font-size: 1.8em;
+    margin: 20px 0;
+}
+
+.hero img {
+    max-width: 600px; 
+    border-radius: 20px;
+}
+
+
+.catalog-header {
+    text-align: center;
+    padding: 40px;
+}
+
+.catalog-header h1 {
+    font-size: 4em;
+    font-family: 'Amatic SC', cursive;
+    color: #2d6a4f;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px;
+}
+
+.product-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.product-card h2 {
+    font-size: 2em;
+    font-family: 'Amatic SC', cursive;
+    color: #2d6a4f;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.product-card .btn {
+    display: inline-block;
+    margin-top: 10px;
+}
